@@ -22,7 +22,9 @@
       </el-row>
     </el-header>
     <el-main class="el-main-app">
-      <router-view/>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
     </el-main>
     <el-footer class="el-footer-app">
       2018 @AdelNorberg
@@ -68,7 +70,6 @@ export default {
   background-color: #f0f2f5;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 
 body > .el-container {
