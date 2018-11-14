@@ -1,43 +1,94 @@
 <template>
-   <el-container>
-    <el-header>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <el-container> 
+    <el-header class="el-header-app">
+      <el-row type="flex">
+        <el-col :span="2">
+          Extended
+        </el-col>
+        <el-col :span="1" v-for="(item, key) in paths" :key="key">
+          <router-link :to="item.path">
+            <div class="router-link">
+              {{ item.name }}
+            </div> 
+          </router-link>
+        </el-col>
+        <el-col :span="2" :offset="17">
+          <router-link to="/signin">
+            <el-button type="button">
+              Sign in
+            </el-button>
+          </router-link>
+        </el-col>
+      </el-row>
     </el-header>
-    <el-main>
+    <el-main class="el-main-app">
       <router-view/>
     </el-main>
-    <el-footer>
+    <el-footer class="el-footer-app">
       2018 @AdelNorberg
-    </el-footer>
+    </el-footer> 
   </el-container>
 </template>
 
-<style lang="sass" scoped>
-.el-header 
-  background-color: #fff
-  color: #333
-  text-align: center
-  line-height: 60px
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08)
-  z-index: 100
+<script>
+export default {
+  data () {
+    return {
+      paths: [
+        { name: 'Home', path: '/' },
+        { name: 'About', path: '/about' },
+        { name: 'Contacts', path: '/contacts' }
+      ]
+    }
+  }
+}
+</script>
 
 
-.el-footer 
-  background-color: #f0f2f5
-  color: #333
-  text-align: center
-  line-height: 60px
+<style lang="scss" scoped>
+@import './assets/vars.scss';
 
+.el-header-app {
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  line-height: 64px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  z-index: 100;
+}
 
-.el-main 
-  background-color: #f0f2f5
-  color: #333
-  text-align: center
-  line-height: 160px
+.el-footer-app {
+  background-color: #f0f2f5;
+  color: #333;
+  text-align: center;
+  line-height: 64px;
+}
 
+.el-main-app {
+  background-color: #f0f2f5;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
+}
 
-body > .el-container 
-  min-height: 100vh
+body > .el-container {
+  min-height: 100vh;
+}
 
+.active {
+  color: $blue;
+  border-bottom: 2px solid $blue;
+}
+
+.router-link {
+  border-bottom: 2px solid white;
+  line-height: 52px;
+  margin-top: 6px;
+  color: black;
+}
+
+.router-link:hover {
+  color: $blue;
+  border-bottom: 2px solid $blue;
+}
 </style>
