@@ -26,10 +26,10 @@ export default new Router({
         import("../views/Contacts")
     },
     {
-      path: "/signin",
-      name: "sign in",
+      path: "/sign",
+      name: "sign",
       component: () =>
-        import("../views/SignIn")
+        import("../views/SignPage")
     }
   ]
 });

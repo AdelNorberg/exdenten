@@ -1,16 +1,13 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import user from './user';
+import general from './general';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    routerPath: ''
-  },
-  mutations: {
-    changePath (state, path) {
-      state.routerPath = path
-    }
-  },
-  actions: {}
+  modules: {
+    user,
+    general
+  }
 });

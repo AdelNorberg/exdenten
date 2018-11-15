@@ -1,5 +1,6 @@
 <template>
   <el-container> 
+
     <el-header class="el-header-app">
       <el-row type="flex">
         <el-col :span="2">
@@ -12,8 +13,11 @@
             </div> 
           </router-link>
         </el-col>
-        <el-col :span="2" :offset="17">
-          <router-link to="/signin">
+        <el-col v-if="isUserAuthenticated" :span="2" :offset="17">
+          icon
+        </el-col>
+        <el-col v-else :span="2" :offset="17">
+          <router-link to="/sign">
             <el-button type="button">
               Sign in
             </el-button>
@@ -21,14 +25,23 @@
         </el-col>
       </el-row>
     </el-header>
+
     <el-main class="el-main-app">
+      <el-alert
+        class="alert"
+        title="warning alert"
+        type="warning"
+        :description="' '" 
+        show-icon /> 
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
     </el-main>
+
     <el-footer class="el-footer-app">
       2018 @AdelNorberg
     </el-footer> 
+
   </el-container>
 </template>
 
@@ -41,6 +54,14 @@ export default {
         { name: 'About', path: '/about' },
         { name: 'Contacts', path: '/contacts' }
       ]
+    }
+  },
+  computed: {
+    error() { 
+      return this.$store.getters.getError
+    },
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated
     }
   }
 }
@@ -70,6 +91,7 @@ export default {
   background-color: #f0f2f5;
   color: #333;
   text-align: center;
+  position: relative;
 }
 
 body > .el-container {
@@ -91,5 +113,11 @@ body > .el-container {
 .router-link:hover {
   color: $blue;
   border-bottom: 2px solid $blue;
+}
+
+.alert {
+  position: absolute; 
+  max-width: 25rem;
+  min-height: 2rem;
 }
 </style>

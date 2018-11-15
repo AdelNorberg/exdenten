@@ -4,26 +4,28 @@
       <el-card class="box-card" shadow="none">
         <div class="name">Exdenten</div>
         <el-tabs class="tabs-cont" :value="activeName">
+
           <el-tab-pane label="Sign in" name="first">
-            <el-form ref="form" :model="ruleForm" :rules="rules">
-              <el-form-item class="form-item" label="Login" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
+            <el-form ref="ruleForm2" :model="ruleForm2" status-icon>
+              <el-form-item class="form-item" label="Email" prop="email">
+                <el-input v-model="ruleForm2.email"></el-input>
               </el-form-item>
               <el-form-item class="form-item" label="Password" prop="pass">
-                <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+                <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm">Sign in</el-button>
+                <el-button type="primary" @click.enter="submitForm('ruleForm2')" :disabled="proccessing">Sign in</el-button>
                 <router-link to="/">
                   <el-button class="btn-canel">Cancel</el-button>
                 </router-link>
               </el-form-item>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane label="Sign up" name="second">
-            <el-form ref="form" :model="ruleForm" :rules="rules">
-              <el-form-item class="form-item" label="Login" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
+          
+          <el-tab-pane label="Sign up" name="second" key="2">
+            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon>
+              <el-form-item class="form-item" label="Email" prop="email">
+                <el-input v-model="ruleForm.email"></el-input>
               </el-form-item>
               <el-form-item class="form-item" label="Password" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -32,13 +34,14 @@
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm">Sign up</el-button>
+                <el-button type="primary" @click.enter="submitForm('ruleForm')" :disabled="proccessing">Sign up</el-button>
                 <router-link to="/">
                   <el-button class="btn-canel">Cancel</el-button>
                 </router-link>
               </el-form-item>
             </el-form>  
           </el-tab-pane>
+
         </el-tabs>
       </el-card>
     </el-col>
@@ -48,7 +51,8 @@
 <script>
   export default {
     data() {
-      var validatePass = (rule, value, callback) => {
+      //example validate in element ui docs
+      let validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('Please input the password'));
         } else {
@@ -58,7 +62,7 @@
           callback();
         }
       };
-      var validatePass2 = (rule, value, callback) => {
+      let validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('Please input the password again'));
         } else if (value !== this.ruleForm.pass) {
@@ -67,19 +71,25 @@
           callback();
         }
       };
+
       return {
+        ruleForm2: {
+          email: '',
+          pass: ''
+        },
         ruleForm: {
-          name: '',
-          password: '',
+          email: '',
+          pass: '',
           checkPass: ''
         },
         rules: {
-          name: [
-            { message: 'Please input Activity name', trigger: 'blur' },
-            { min: 3, max: 20, message: 'Length should be 3 to 5', trigger: 'blur' }
+          email: [
+            { message: 'Please input email address', trigger: 'blur' },
+            { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
           ],
           pass: [
-            { validator: validatePass, trigger: 'blur' }
+            { validator: validatePass, trigger: 'blur' },
+            { min: 6, max: 20, message: 'Length should be 6 to 20', trigger: 'blur' }
           ],
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
@@ -92,15 +102,27 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            formName === 'ruleForm2' ?
+              this.$store.dispatch('SIGNIN', this.ruleForm2) :
+              this.$store.dispatch('SIGNUP', this.ruleForm)
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
+      }
+    },
+    computed: {
+      proccessing() {
+        return this.$store.getters.getProccessing
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+      isUserAuthenticated() {
+        return this.$store.getters.isUserAuthenticated
+      }
+    },
+    watch: {
+      isUserAuthenticated(val) {
+        if(val === true)
+          this.$router.push('/')
       }
     }
   }
