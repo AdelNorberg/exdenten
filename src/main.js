@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './routers/index';
-import store from './store/index';
 import ElementUI from 'element-ui';
+import store from './store/index';
 import firebaseConfig from './config/firebase';
 import firebase from 'firebase';
 import './assets/main.scss';

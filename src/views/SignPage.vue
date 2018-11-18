@@ -106,19 +106,6 @@
         activeName: 'first'
       }
     },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            formName === 'ruleForm2' ?
-              this.$store.dispatch('SIGNIN', this.ruleForm2) :
-              this.$store.dispatch('SIGNUP', this.ruleForm)
-          } else {
-            return false;
-          }
-        })
-      }
-    },
     computed: {
       proccessing() {
         return this.$store.getters.getProccessing
@@ -131,6 +118,19 @@
       isUserAuthenticated(val) {
         if(val === true)
           this.$router.push('/')
+      }
+    },
+    methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            formName === 'ruleForm2' ?
+              this.$store.dispatch('SIGNIN', this.ruleForm2) :
+              this.$store.dispatch('SIGNUP', this.ruleForm)
+          } else {
+            return false;
+          }
+        })
       }
     }
   }

@@ -32,12 +32,6 @@
     </el-header>
 
     <el-main class="el-main-app">
-      <el-alert
-        class="alert"
-        title="warning alert"
-        type="warning"
-        :description="' '" 
-        show-icon /> 
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
@@ -59,6 +53,16 @@ export default {
         { name: 'About', path: '/about' },
         { name: 'Contacts', path: '/contacts' }
       ]
+    }
+  },
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated
+    }
+  },
+  watch: {
+    error() {
+      let textError = this.$store.getters.getError
     }
   },
   methods: {
@@ -83,14 +87,6 @@ export default {
                 : 'Stay in the current route'
           })
       });
-    }
-  },
-  computed: {
-    error() { 
-      return this.$store.getters.getError
-    },
-    isUserAuthenticated() {
-      return this.$store.getters.isUserAuthenticated
     }
   }
 }
