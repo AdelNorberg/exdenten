@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import Vue from 'vue';
 
 export default {
   state: {
@@ -25,7 +26,10 @@ export default {
         })
         .catch((error) => {
           commit('SET_PROCCESSING', false)
-          commit('SET_ERROR', error.message)
+          Vue.prototype.$message({
+              type: 'info',
+              message: error.message
+          })
         });
     },
     SIGNIN ({commit}, {email, pass}) {
@@ -37,7 +41,10 @@ export default {
       })
       .catch(error => {
         commit('SET_PROCCESSING', false)
-        commit('SET_ERROR', error.message)
+        Vue.prototype.$message({
+          type: 'info',
+          message: 'Incorrect login or password'
+      })
       });
     },
     SIGNOUT() {

@@ -1,6 +1,6 @@
 <template>
-  <el-row type="flex" justify="center">
-    <el-col :span="6">
+  <el-row type="flex" justify="center" :gutter="24">
+    <el-col :xs="22" :sm="14" :md="10" :lg="6">
       <el-card class="box-card" shadow="none">
         <div class="name">Exdenten</div>
         <el-tabs class="tabs-cont" :value="activeName">

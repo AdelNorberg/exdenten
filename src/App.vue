@@ -2,26 +2,26 @@
   <el-container> 
 
     <el-header class="el-header-app">
-      <el-row type="flex">
-        <el-col :span="2">
+      <el-row :gutter="24">
+        <el-col :xs="6" :sm="3" :span="2">
           Extended
         </el-col>
-        <el-col :span="1" v-for="(item, key) in paths" :key="key">
+        <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="1" v-for="(item, key) in paths" :key="key">
           <router-link :to="item.path">
             <div class="router-link">
               {{ item.name }}
             </div> 
           </router-link>
         </el-col>
-        <el-col v-if="isUserAuthenticated" :span="2" :offset="17">
+        <el-col v-if="isUserAuthenticated" :xs="1" :sm="3" :md="3" :lg="2" :xl="1">
           icon
         </el-col>
-        <el-col v-if="isUserAuthenticated" :span="2" >
+        <el-col v-if="isUserAuthenticated" :xs="5" :sm="3" :md="3" :lg="2" :xl="1">
           <el-button type="button" @click="signout">
             Выйти
           </el-button>
         </el-col>
-        <el-col v-else :span="2" :offset="17">
+        <el-col v-else :xs="6" :sm="3" :md="3" :lg="2" :xl="1">
           <router-link to="/sign">
             <el-button type="button">
               Sign in
