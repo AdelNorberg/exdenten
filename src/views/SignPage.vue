@@ -14,7 +14,11 @@
                 <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click.enter="submitForm('ruleForm2')" :disabled="proccessing">Sign in</el-button>
+                <el-button  type="primary" 
+                            @click="submitForm('ruleForm2')"
+                            :disabled="proccessing">
+                            Sign in
+                </el-button>
                 <router-link to="/">
                   <el-button class="btn-canel">Cancel</el-button>
                 </router-link>
@@ -34,7 +38,11 @@
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click.enter="submitForm('ruleForm')" :disabled="proccessing">Sign up</el-button>
+                <el-button  type="primary" 
+                            @click="submitForm('ruleForm')"
+                            :disabled="proccessing">
+                            Sign up
+                </el-button>
                 <router-link to="/">
                   <el-button class="btn-canel">Cancel</el-button>
                 </router-link>
@@ -108,7 +116,7 @@
           } else {
             return false;
           }
-        });
+        })
       }
     },
     computed: {

@@ -11,10 +11,8 @@ export default {
       state.uid = payload
     },
     UNSET_USER(state) {
-      state = {
-        isAuthenticated: false,
-        uid: null
-      }
+      state.isAuthenticated = false
+      state.uid = null
     } 
   },
   actions: {
@@ -41,6 +39,9 @@ export default {
         commit('SET_PROCCESSING', false)
         commit('SET_ERROR', error.message)
       });
+    },
+    SIGNOUT() {
+      firebase.auth().signOut()
     },
     STATE_CHANGED({commit}, payload) {
       if(payload){

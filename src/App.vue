@@ -16,6 +16,11 @@
         <el-col v-if="isUserAuthenticated" :span="2" :offset="17">
           icon
         </el-col>
+        <el-col v-if="isUserAuthenticated" :span="2" >
+          <el-button type="button" @click="signout">
+            Выйти
+          </el-button>
+        </el-col>
         <el-col v-else :span="2" :offset="17">
           <router-link to="/sign">
             <el-button type="button">
@@ -54,6 +59,30 @@ export default {
         { name: 'About', path: '/about' },
         { name: 'Contacts', path: '/contacts' }
       ]
+    }
+  },
+  methods: {
+    signout() {
+      this.$confirm('Do you really want to go out?', 'Confirm', {
+          distinguishCancelAndClose: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        })
+          .then(() => {
+            this.$store.dispatch('SIGNOUT')
+            this.$message({
+              type: 'success',
+              message: 'You have successfully logged out..'
+            });
+          })
+          .catch(action => {
+            this.$message({
+              type: 'info',
+              message: action === 'cancel'
+                ? 'Changes rejected. You stayed in the account.'
+                : 'Stay in the current route'
+          })
+      });
     }
   },
   computed: {
