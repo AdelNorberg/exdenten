@@ -1,21 +1,14 @@
 <template>
   <el-container> 
+    <nav-menu :is-collapse="isCollapse"/> 
 
-    <el-header class="el-header-app">
+    <el-container>
+      <el-header class="el-header-app">
       <el-row type="flex" justify="space-between">
-        <el-col>
-          <el-row>
-            <el-col :xs="6" :sm="3" :xl="3">
-              Extended
-            </el-col>
-            <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="1" v-for="(item, key) in paths" :key="key">
-              <router-link :to="item.path">
-                <div class="router-link">
-                  {{ item.name }}
-                </div> 
-              </router-link>
-            </el-col>
-          </el-row>
+        <el-col :xs="6" :sm="1" :xl="1">
+          <i class="el-icon-caret-left caret-icon-custom" 
+             :class="{'caret-icon-custom-active': isCollapse}"
+             @click="isCollapseChange" />
         </el-col>
 
         <el-col v-if="isUserAuthenticated" :xs="8" :sm="5" :md="4" :lg="3" :xl="2">
@@ -24,12 +17,12 @@
               <el-popover
                 placement="bottom"
                 trigger="click">
-                <div v-for="(item, key) in notifications" :key="key" class="text item">
+                <div class="text item" v-for="(item, key) in notifications" :key="key">
                   <el-row type="flex">
                     <el-col :span="6">{{ item.type }}</el-col>
                     <el-col :span="18">
                       <el-row>
-                        <el-col>{{ item.description }}</el-col>
+                        <el-col class="description">{{ item.description }}</el-col>
                         <el-col>{{ item.time }}</el-col>
                       </el-row>
                     </el-col>
@@ -65,14 +58,21 @@
     <el-footer class="el-footer-app">
       2018 @AdelNorberg
     </el-footer> 
+    </el-container>
 
   </el-container>
 </template>
 
 <script>
+import NavMenu from './layouts/NavMenu'
+
 export default {
+  components: {
+    NavMenu
+  },
   data () {
     return {
+      isCollapse: false,
       paths: [
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
@@ -97,6 +97,9 @@ export default {
     }
   },
   methods: {
+    isCollapseChange() {
+      this.isCollapse = !this.isCollapse
+    },
     signout() {
       this.$confirm('Do you really want to go out?', 'Confirm', {
           distinguishCancelAndClose: true,
@@ -171,13 +174,38 @@ body > .el-container {
   border-bottom: 2px solid $blue;
 }
 
+.router-link-active {
+  color: $blue;
+  border-bottom: 2px solid $blue;
+}
+
 .alert {
   position: absolute; 
   max-width: 25rem;
   min-height: 2rem;
 }
 
+.caret-icon-custom {
+  cursor: pointer;
+}
+
+.caret-icon-custom-active {
+  transform: rotate(180deg)
+}
+
 .icon-bell-custom:hover {
   background-color: rgb(195, 195, 195);
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.item:first-child {
+  margin-top: 10px;
+}
+
+.description {
+  margin-bottom: 7px;
 }
 </style>

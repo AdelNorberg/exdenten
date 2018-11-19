@@ -26,6 +26,12 @@ export default new Router({
         import("../views/ContactsPage")
     },
     {
+      path: "/settings",
+      name: "settings",
+      component: () =>
+        import("../views/UserSettings")
+    },
+    {
       path: "/sign",
       name: "sign",
       component: () =>
