@@ -2,26 +2,51 @@
   <el-container> 
 
     <el-header class="el-header-app">
-      <el-row :gutter="24">
-        <el-col :xs="6" :sm="3" :span="2">
-          Extended
+      <el-row type="flex" justify="space-between">
+        <el-col>
+          <el-row>
+            <el-col :xs="6" :sm="3" :xl="3">
+              Extended
+            </el-col>
+            <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="1" v-for="(item, key) in paths" :key="key">
+              <router-link :to="item.path">
+                <div class="router-link">
+                  {{ item.name }}
+                </div> 
+              </router-link>
+            </el-col>
+          </el-row>
         </el-col>
-        <el-col :xs="4" :sm="3" :md="3" :lg="2" :xl="1" v-for="(item, key) in paths" :key="key">
-          <router-link :to="item.path">
-            <div class="router-link">
-              {{ item.name }}
-            </div> 
-          </router-link>
+
+        <el-col v-if="isUserAuthenticated" :xs="8" :sm="5" :md="4" :lg="3" :xl="2">
+          <el-row type="flex">
+            <el-col>
+              <el-popover
+                placement="bottom"
+                trigger="click">
+                <div v-for="(item, key) in notifications" :key="key" class="text item">
+                  <el-row type="flex">
+                    <el-col :span="6">{{ item.type }}</el-col>
+                    <el-col :span="18">
+                      <el-row>
+                        <el-col>{{ item.description }}</el-col>
+                        <el-col>{{ item.time }}</el-col>
+                      </el-row>
+                    </el-col>
+                  </el-row>
+                </div>
+                <i class="el-icon-bell icon-bell-custom" slot="reference"/>
+              </el-popover>
+            </el-col>
+            <el-col>
+              <el-button type="button" @click="signout">
+                Выйти
+              </el-button>
+            </el-col>
+          </el-row>
         </el-col>
-        <el-col v-if="isUserAuthenticated" :xs="1" :sm="3" :md="3" :lg="2" :xl="1">
-          icon
-        </el-col>
-        <el-col v-if="isUserAuthenticated" :xs="5" :sm="3" :md="3" :lg="2" :xl="1">
-          <el-button type="button" @click="signout">
-            Выйти
-          </el-button>
-        </el-col>
-        <el-col v-else :xs="6" :sm="3" :md="3" :lg="2" :xl="1">
+
+        <el-col v-else :xs="6" :sm="3" :md="3" :lg="2" :xl="2">
           <router-link to="/sign">
             <el-button type="button">
               Sign in
@@ -52,6 +77,12 @@ export default {
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
         { name: 'Contacts', path: '/contacts' }
+      ],
+      notifications: [
+        { type: 'meesage', description: 'Congratulations on your new day...', time: 'a year ago' },
+        { type: 'event', description: 'Today there will be a group chat for...', time: 'a year ago' },
+        { type: 'message', description: 'Now you can remove the goods in...', time: 'a year ago' },
+        { type: 'Constructor', description: 'We added a new feature to the...', time: 'a year ago' }
       ]
     }
   },
@@ -144,5 +175,9 @@ body > .el-container {
   position: absolute; 
   max-width: 25rem;
   min-height: 2rem;
+}
+
+.icon-bell-custom:hover {
+  background-color: rgb(195, 195, 195);
 }
 </style>
