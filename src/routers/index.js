@@ -26,10 +26,16 @@ export default new Router({
         import("../views/ContactsPage")
     },
     {
-      path: "/settings",
-      name: "settings",
+      path: "/account-center",
+      name: "account-center",
       component: () =>
-        import("../views/UserSettings")
+        import("../views/AccountCenter")
+    },
+    {
+      path: "/account-settings",
+      name: "account-settings",
+      component: () =>
+        import("../views/AccountSettings")
     },
     {
       path: "/sign",

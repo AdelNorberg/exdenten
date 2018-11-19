@@ -12,10 +12,18 @@
         <i class="el-icon-document"></i>
         <span slot="title">Contacts</span>
     </el-menu-item>
-    <el-menu-item index="4" @click="onClickPath('/settings')">
+    <el-submenu index="4">
+      <template slot="title">
         <i class="el-icon-setting"></i>
         <span slot="title">Account</span>
-    </el-menu-item>
+      </template>
+      <el-menu-item index="1-1" @click="onClickPath('/account-center')">
+        Account center
+      </el-menu-item>
+      <el-menu-item index="1-2" @click="onClickPath('/account-settings')">
+        Account settings
+      </el-menu-item>
+    </el-submenu>
   </el-menu>
 </template>
 
