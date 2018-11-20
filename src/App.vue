@@ -8,7 +8,7 @@
         <el-col :xs="6" :sm="1" :xl="1">
           <i class="el-icon-caret-left caret-icon-custom" 
              :class="{'caret-icon-custom-active': isCollapse}"
-             @click="isCollapseChange" />
+             @click="isCollapse = !isCollapse" />
         </el-col>
 
         <el-col v-if="isUserAuthenticated" :xs="8" :sm="5" :md="4" :lg="3" :xl="2">
@@ -97,9 +97,6 @@ export default {
     }
   },
   methods: {
-    isCollapseChange() {
-      this.isCollapse = !this.isCollapse
-    },
     signout() {
       this.$confirm('Do you really want to go out?', 'Confirm', {
           distinguishCancelAndClose: true,

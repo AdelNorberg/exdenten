@@ -59,6 +59,7 @@ export default {
     }
   },
   getters: {
+    userId: (state) => state.uid,
     isUserAuthenticated: (state) => state.isAuthenticated
   }
 }

@@ -5,7 +5,7 @@
         <div class="name">Exdenten</div>
         <el-tabs class="tabs-cont" :value="activeName">
 
-          <el-tab-pane label="Sign in" name="first">
+          <el-tab-pane label="Sign in" name="first" key="1" v-loading="getProccessing">
             <el-form ref="ruleForm2" :model="ruleForm2" status-icon>
               <el-form-item class="form-item" label="Email" prop="email">
                 <el-input v-model="ruleForm2.email"></el-input>
@@ -16,7 +16,7 @@
               <el-form-item>
                 <el-button  type="primary" 
                             @click="submitForm('ruleForm2')"
-                            :disabled="proccessing">
+                            :disabled="getProccessing">
                             Sign in
                 </el-button>
                 <router-link to="/">
@@ -26,7 +26,7 @@
             </el-form>
           </el-tab-pane>
           
-          <el-tab-pane label="Sign up" name="second" key="2">
+          <el-tab-pane label="Sign up" name="second" key="2" v-loading="getProccessing">
             <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon>
               <el-form-item class="form-item" label="Email" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
@@ -40,7 +40,7 @@
               <el-form-item>
                 <el-button  type="primary" 
                             @click="submitForm('ruleForm')"
-                            :disabled="proccessing">
+                            :disabled="getProccessing">
                             Sign up
                 </el-button>
                 <router-link to="/">
@@ -57,83 +57,80 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      //example validate in element ui docs
-      let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('Please input the password'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      let validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('Please input the password again'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('Two inputs don\'t match!'));
-        } else {
-          callback();
-        }
-      };
+import { mapGetters } from 'vuex'
 
-      return {
-        ruleForm2: {
-          email: '',
-          pass: ''
-        },
-        ruleForm: {
-          email: '',
-          pass: '',
-          checkPass: ''
-        },
-        rules: {
-          email: [
-            { message: 'Please input email address', trigger: 'blur' },
-            { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
-          ],
-          pass: [
-            { validator: validatePass, trigger: 'blur' },
-            { min: 6, max: 20, message: 'Length should be 6 to 20', trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
-          ],
-        },
-        activeName: 'first'
+export default {
+  data() {
+    //example validate in element ui docs
+    let validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input the password'));
+      } else {
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass');
+        }
+        callback()
       }
-    },
-    computed: {
-      proccessing() {
-        return this.$store.getters.getProccessing
+    };
+    let validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please input the password again'));
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error('Two inputs don\'t match!'));
+      } else {
+        callback()
+      }
+    };
+
+    return {
+      ruleForm2: {
+        email: '',
+        pass: ''
       },
-      isUserAuthenticated() {
-        return this.$store.getters.isUserAuthenticated
-      }
-    },
-    watch: {
-      isUserAuthenticated(val) {
-        if(val === true)
-          this.$router.push('/')
-      }
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            formName === 'ruleForm2' ?
-              this.$store.dispatch('SIGNIN', this.ruleForm2) :
-              this.$store.dispatch('SIGNUP', this.ruleForm)
-          } else {
-            return false;
-          }
-        })
-      }
+      ruleForm: {
+        email: '',
+        pass: '',
+        checkPass: ''
+      },
+      rules: {
+        email: [
+          { message: 'Please input email address', trigger: 'blur' },
+          { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
+        ],
+        pass: [
+          { validator: validatePass, trigger: 'blur' },
+          { min: 6, max: 20, message: 'Length should be 6 to 20', trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
+        ],
+      },
+      activeName: 'first'
+    }
+  },
+  computed: {
+    ...mapGetters(['isUserAuthenticated', 'getProccessing'])
+  },
+  watch: {
+    isUserAuthenticated(val) {
+      if(val === true)
+        this.$router.push('/')
+    }
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          formName === 'ruleForm2' ?
+            this.$store.dispatch('SIGNIN', this.ruleForm2) :
+            this.$store.dispatch('SIGNUP', this.ruleForm)
+        } else {
+          return false;
+        }
+      })
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
