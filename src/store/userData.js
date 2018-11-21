@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-let = {
+let defaultProfile = {
   avatarUrl: '',
   nickname: ''
 }
@@ -36,6 +36,10 @@ export default {
           })
           commit('SET_PROCCESSING', false)
         })
+    },
+    LOAD_USER_NOTIFICATION({commit, getters}) {
+      commit('SET_PROCCESSING', true)
+      let userNotifRef = Vue.$db.collection('userNotification').doc(getters.userId)
     }
   }
 }

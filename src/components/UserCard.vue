@@ -7,5 +7,4 @@
 .user-card {
   padding-top: -20px;
 }
-
 </style>

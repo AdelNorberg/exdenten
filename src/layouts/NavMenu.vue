@@ -1,5 +1,5 @@
 <template>
-  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse">    
+  <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">    
     <el-menu-item index="1" @click="$router.push('/')">
       <i class="el-icon-star-off"></i>
       <span slot="title">Exdenten</span>
