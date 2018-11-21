@@ -16,7 +16,7 @@
               </el-col>
               <el-col>
                 <span>Personal profile</span>
-                <el-input type="textarea"
+                <el-input type="textarea" 
                           autosize
                           placeholder="Please input"
                           v-model="textarea2" />

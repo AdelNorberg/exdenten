@@ -25,11 +25,11 @@ export default {
           commit('SET_PROCCESSING', false)
         })
         .catch((error) => {
-          commit('SET_PROCCESSING', false)
           Vue.prototype.$message({
               type: 'info',
               message: error.message
           })
+          commit('SET_PROCCESSING', false)
         });
     },
     SIGNIN ({commit}, {email, pass}) {
@@ -40,11 +40,11 @@ export default {
         commit('SET_PROCCESSING', false)
       })
       .catch(error => {
-        commit('SET_PROCCESSING', false)
         Vue.prototype.$message({
           type: 'info',
           message: 'Incorrect login or password'
-      })
+        })
+        commit('SET_PROCCESSING', false)
       });
     },
     SIGNOUT() {
@@ -53,6 +53,7 @@ export default {
     STATE_CHANGED({commit}, payload) {
       if(payload){
         commit('SET_USER', payload.uid)
+        commit('LOAD_USER_DATA', payload.uid)
       } else {
         commit('UNSET_USER')
       }
