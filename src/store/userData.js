@@ -40,6 +40,11 @@ export default {
     LOAD_USER_NOTIFICATION({commit, getters}) {
       commit('SET_PROCCESSING', true)
       let userNotifRef = Vue.$db.collection('userNotification').doc(getters.userId)
+      //...
+    },
+    ADD_PROFILE_SETTINGS({commit}, payload) {
+      commit('SET_PROCCESSING', true)
+      //...
     }
   }
 }

@@ -15,13 +15,14 @@ Vue.use(ElementUI);
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 const storage = firebaseApp.storage();
+const storageRef = storage.ref();
 
 db.settings({
   timestampsInSnapshots: true
 })
 
 Vue.$db = db;
-Vue.$storage = storage;
+Vue.$storageRef = storageRef;
 
 new Vue({
   router,

@@ -147,7 +147,6 @@ export default {
   background-color: #f0f2f5;
   color: #333;
   text-align: center;
-  position: relative;
 }
 
 body > .el-container {
