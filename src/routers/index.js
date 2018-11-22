@@ -42,6 +42,12 @@ export default new Router({
       name: "sign",
       component: () =>
         import("../views/SignPage")
+    },
+    {
+      path: "/error",
+      name: "error",
+      component: () =>
+        import("../views/ErrorPage")
     }
   ]
 });

@@ -6,9 +6,10 @@
       <el-header class="el-header-app">
       <el-row type="flex" justify="space-between">
         <el-col :xs="6" :sm="1" :xl="1">
-          <i class="el-icon-caret-left caret-icon-custom" 
-             :class="{'caret-icon-custom-active': isCollapse}"
-             @click="isCollapse = !isCollapse" />
+          <antd-icon type="menu-unfold-o"
+                     class="caret-icon-custom" 
+                     :class="{'caret-icon-custom-active': isCollapse}"
+                     @click="isCollapse = !isCollapse" />
         </el-col>
 
         <el-col v-if="isUserAuthenticated" :xs="8" :sm="5" :md="4" :lg="3" :xl="2">
@@ -28,7 +29,7 @@
                     </el-col>
                   </el-row>
                 </div>
-                <i class="el-icon-bell icon-bell-custom" slot="reference"/>
+                <antd-icon class="el-icon-bell icon-bell-custom" slot="reference" type="bell-o"/>
               </el-popover>
             </el-col>
             <el-col>
@@ -189,8 +190,8 @@ body > .el-container {
   transform: rotate(180deg)
 }
 
-.icon-bell-custom:hover {
-  background-color: rgb(195, 195, 195);
+.icon-bell-custom {
+  color: hsl(0, 0%, 55%);
 }
 
 .item {

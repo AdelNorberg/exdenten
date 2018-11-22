@@ -1,24 +1,24 @@
 <template>
   <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">    
     <el-menu-item index="1" @click="$router.push('/')">
-      <i class="el-icon-star-off"></i>
+      <antd-icon type="code-sandbox-o" class="antd-icon" />
       <span slot="title">Exdenten</span>
     </el-menu-item>
     <el-menu-item index="2" @click="$router.push('/')">
-        <i class="el-icon-menu"></i>
+        <antd-icon type="home-o" class="antd-icon" />
         <span slot="title">Home</span>
     </el-menu-item>
     <el-menu-item index="3" @click="$router.push('/about')">
-        <i class="el-icon-goods"></i> 
+        <antd-icon type="shopping-o" class="antd-icon" />
         <span slot="title">Store</span>
     </el-menu-item>
     <el-menu-item index="4" @click="$router.push('/contacts')">
-        <i class="el-icon-document"></i>
+        <antd-icon type="contacts-o" class="antd-icon" />
         <span slot="title">Contacts</span>
     </el-menu-item>
     <el-submenu index="5">
       <template slot="title">
-        <i class="el-icon-setting"></i>
+        <antd-icon type="user-o" class="antd-icon" />
         <span slot="title">Account</span>
       </template>
       <el-menu-item index="1-1" @click="$router.push('/account-center')">
@@ -42,5 +42,10 @@ export default {
 <style>
 .el-menu-vertical-demo {
   width: 11rem;
+}
+
+.antd-icon {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 </style>

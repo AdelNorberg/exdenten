@@ -5,12 +5,21 @@ import ElementUI from 'element-ui';
 import store from './store/index';
 import firebaseConfig from './config/firebase';
 import firebase from 'firebase';
+import { AntDesignOutline, DashboardOutline, MenuUnfoldOutline,  
+         BellOutline, HomeOutline, UserOutline, ShoppingOutline,
+         ContactsOutline, CodeSandboxOutline } from '@ant-design/icons';
+import AntdIcon from '@ant-design/icons-vue';
 import 'firebase/firestore';
 import './assets/main.scss';
 import 'element-ui/lib/theme-chalk/index.css';
 
+AntdIcon.add( AntDesignOutline, DashboardOutline, MenuUnfoldOutline, 
+              BellOutline, HomeOutline, UserOutline, ShoppingOutline,
+              ContactsOutline, CodeSandboxOutline );
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+Vue.use(AntdIcon);
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
