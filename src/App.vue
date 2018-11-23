@@ -12,9 +12,9 @@
                      @click="isCollapse = !isCollapse" />
         </el-col>
 
-        <el-col v-if="isUserAuthenticated" :xs="8" :sm="5" :md="4" :lg="3" :xl="2">
+        <el-col v-if="isUserAuthenticated" :xs="15" :sm="10" :md="7" :lg="6" :xl="4">
           <el-row type="flex">
-            <el-col>
+            <el-col :span="2" style="margin-top: 1px">
               <el-popover
                 placement="bottom"
                 trigger="click">
@@ -32,7 +32,13 @@
                 <antd-icon class="el-icon-bell icon-bell-custom" slot="reference" type="bell-o"/>
               </el-popover>
             </el-col>
-            <el-col>
+            <el-col :span="12" class="cont-profile">
+            <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" class="avatar">
+            <span :span="8" style="font-size: 14px;margin-right: -2rem">
+              Nick Sayson
+            </span>
+            </el-col>
+            <el-col :span="7">
               <el-button type="button" @click="signout">
                 Выйти
               </el-button>
@@ -157,6 +163,20 @@ body > .el-container {
 .active {
   color: $blue;
   border-bottom: 2px solid $blue;
+}
+
+.cont-profile {
+  cursor: pointer;
+}
+
+.avatar {
+  position: absolute;
+  border-radius: 20px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  margin-top: 1.1rem;
+  margin-left: -2rem;
 }
 
 .router-link {

@@ -10,44 +10,37 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: () =>
-      import("../views/HomePage")
+      component: () => import("../views/HomePage")
     },
     {
       path: "/about",
       name: "about",
-      component: () =>
-        import("../views/AboutPage")
+      component: () => import("../views/AboutPage")
     },
     {
       path: "/contacts",
       name: "contacts",
-      component: () =>
-        import("../views/ContactsPage")
+      component: () => import("../views/ContactsPage")
     },
     {
       path: "/account-center",
       name: "account-center",
-      component: () =>
-        import("../views/AccountCenter")
+      component: () => import("../views/AccountCenter")
     },
     {
       path: "/account-settings",
       name: "account-settings",
-      component: () =>
-        import("../views/AccountSettings")
+      component: () => import("../views/AccountSettings")
     },
     {
       path: "/sign",
       name: "sign",
-      component: () =>
-        import("../views/SignPage")
+      component: () => import("../views/SignPage")
     },
     {
       path: "/error",
       name: "error",
-      component: () =>
-        import("../views/ErrorPage")
+      component: () => import("../views/ErrorPage")
     }
   ]
 });
