@@ -1,4 +1,6 @@
 <template>
-  <el-card shadow="never" class="user-card">ффыв</el-card>
+  <el-card shadow="never" class="user-card">
+    <h1>asdadsa</h1>
+  </el-card>
 </template>
 
