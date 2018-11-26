@@ -46,7 +46,7 @@
           </el-row>
         </el-col>
 
-        <el-col v-else :xs="6" :sm="3" :md="3" :lg="2" :xl="2">
+        <el-col v-else :xs="6" :sm="3" :md="3" :lg="2" :xl="1">
           <router-link to="/sign">
             <el-button type="button">
               Sign in

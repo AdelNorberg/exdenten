@@ -3,7 +3,7 @@
     <user-card />
     <el-row :gutter="24">
       <el-col :span="6">
-        <product-card v-for="(item, key) in productsCardData" :data="item" :key="key" />
+        <product-card v-for="(item, key) in productsCardData" :data="item" :key="key"/>
       </el-col>
     </el-row>
   </el-row> 
