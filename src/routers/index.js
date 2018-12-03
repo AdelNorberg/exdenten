@@ -13,6 +13,11 @@ export default new Router({
       component: () => import("../views/HomePage")
     },
     {
+      path:'/home',
+      name: "homeNotAuth",
+      component: () => import("../views/notAuth/HomePage")
+    },
+    {
       path: "/about",
       name: "about",
       component: () => import("../views/AboutPage")
@@ -44,3 +49,4 @@ export default new Router({
     }
   ]
 });
+
