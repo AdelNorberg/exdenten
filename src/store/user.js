@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 import Vue from 'vue';
+import { SET_USER, UNSET_USER } from './mutation-types';
+import { SIGNUP, SIGNIN, SIGNOUT, STATE_CHANGED } from './action-types';
 
 export default {
   state: {
@@ -7,17 +9,17 @@ export default {
     uid: null
   },
   mutations: {
-    SET_USER(state, payload) {
+    [SET_USER](state, payload) {
       state.isAuthenticated = true 
       state.uid = payload
     },
-    UNSET_USER(state) {
+    [UNSET_USER](state) {
       state.isAuthenticated = false
       state.uid = null
     } 
   },
   actions: {
-    async SIGNUP ({commit}, {email, pass}) {
+    async [SIGNUP] ({commit}, {email, pass}) {
       commit('SET_PROCCESSING', true)
       commit('CLEAR_ERROR')
       try {
@@ -32,7 +34,7 @@ export default {
         commit('SET_PROCCESSING', false)
       }
     },
-    async SIGNIN ({commit}, {email, pass}) {
+    async [SIGNIN] ({commit}, {email, pass}) {
       commit('SET_PROCCESSING', true)
       commit('CLEAR_ERROR')
       
@@ -48,10 +50,10 @@ export default {
         commit('SET_PROCCESSING', false)
       }
     },
-    async SIGNOUT() {
+    async [SIGNOUT]() {
       await firebase.auth().signOut()
     },
-    async STATE_CHANGED({commit, dispatch}, payload) {
+    async [STATE_CHANGED]({commit, dispatch}, payload) {
       if(payload){
         commit('SET_USER', payload.uid)
         dispatch('LOAD_USER_PROFILE', payload.uid)
