@@ -17,40 +17,41 @@ export default {
     } 
   },
   actions: {
-    SIGNUP ({commit}, {email, pass}) {
+    async SIGNUP ({commit}, {email, pass}) {
       commit('SET_PROCCESSING', true)
       commit('CLEAR_ERROR')
-      firebase.auth().createUserWithEmailAndPassword(email, pass)
-        .then(() => {
-          commit('SET_PROCCESSING', false)
-        })
-        .catch((error) => {
-          Vue.prototype.$message({
-              type: 'info',
-              message: error.message
-          })
-          commit('SET_PROCCESSING', false)
-        });
-    },
-    SIGNIN ({commit}, {email, pass}) {
-      commit('SET_PROCCESSING', true)
-      commit('CLEAR_ERROR')
-      firebase.auth().signInWithEmailAndPassword(email, pass)
-      .then(() => {
+      try {
+        firebase.auth().createUserWithEmailAndPassword(email, pass)
         commit('SET_PROCCESSING', false)
-      })
-      .catch(error => {
+      }
+      catch(e) {
+        Vue.prototype.$message({
+          type: 'info',
+          message: error.message
+        })
+        commit('SET_PROCCESSING', false)
+      }
+    },
+    async SIGNIN ({commit}, {email, pass}) {
+      commit('SET_PROCCESSING', true)
+      commit('CLEAR_ERROR')
+      
+      try {
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+        commit('SET_PROCCESSING', false)
+      }
+      catch {
         Vue.prototype.$message({
           type: 'info',
           message: 'Incorrect login or password'
         })
         commit('SET_PROCCESSING', false)
-      });
+      }
     },
-    SIGNOUT() {
-      firebase.auth().signOut()
+    async SIGNOUT() {
+      await firebase.auth().signOut()
     },
-    STATE_CHANGED({commit, dispatch}, payload) {
+    async STATE_CHANGED({commit, dispatch}, payload) {
       if(payload){
         commit('SET_USER', payload.uid)
         dispatch('LOAD_USER_PROFILE', payload.uid)

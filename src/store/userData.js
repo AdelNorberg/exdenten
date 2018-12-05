@@ -17,6 +17,9 @@ export default {
     SET_PROFILE_DATA(state, payload) {
       state.profile = payload
     },
+    SET_PROFILE_IMG(state, payload) {
+      state.profileAvatar = payload
+    },
     SET_NOTIFICATION_MSGS(state, payload) {
       state.notificationMsgs = payload
     },
@@ -25,55 +28,56 @@ export default {
     }
   },
   actions: {
-    LOAD_USER_PROFILE({commit}, payload) {
-
+    async LOAD_USER_PROFILE({commit}, payload) {
       commit('SET_PROCCESSING', true)
-      
-      let userProfileRef = Vue.$db.collection('profile').doc(payload)
 
-      //profile: text format
-      userProfileRef.get()
-        .then(data => {
-          let profile = data.exists ? data.data() : defaultProfile
-          commit('SET_PROFILE_DATA', profile)
-          commit('SET_PROCCESSING', false)
-        })
-        .catch(error => {
-          Vue.prototype.$message({
-            type: 'error',
-            message: error.message
-          })
-          commit('SET_PROCCESSING', false)
-        })
+      try {
+        let userProfileRef = await Vue.$db.collection('profile').doc(payload)
+        data = userProfileRef.get()
+        
+        let profile = data.exists ? data.data() : defaultProfile
+        commit('SET_PROFILE_DATA', profile)
+        commit('SET_PROCCESSING', false)   
+      }
+      catch(e) {
+        Vue.prototype.$message({type: 'error', message: e.message})
+        commit('SET_PROCCESSING', false)
+      }
     },
-    LOAD_USER_NOTIFICATION({commit, getters}) {
+    async LOAD_USER_NOTIFICATION({commit, getters}) {
       commit('SET_PROCCESSING', true)
-      let userNotifRef = Vue.$db.collection('userNotification').doc(getters.userId)
+      await Vue.$db.collection('userNotification').doc(getters.userId)
       //...
     },
-    LOAD_AVATAR({commit}, payload) {
+    async LOAD_AVATAR({commit, getters}, payload) {
       //...
+      //url = storageRef.child(`profilePhotos/${getters.userId}/avatar.jpg`).getDownloadURL()
     },
-    UPDATE_PROFILE({commit, getters}, payload) {
+    async UPDATE_PROFILE({commit, getters}, payload) {
       commit('SET_PROCCESSING', true)
-
-      const { newProfile, avatarFile } = payload;
+      const { newProfile, avatarFile, avatarUrl } = payload;
+      const uid = getters.userId;
       
-      console.log(getters.userId)
-
-      if(avatarFile) 
-        Vue.$storageRef.child(`profilePhotos/${getters.userId}/avatar.jpg`).put(avatarFile)
-          .then(() => {
-            commit('SET_PROCCESSING', false)
-            //доделать
-          })
-          .catch(error => {
-            Vue.prototype.$message({
-              type: 'error',
-              message: error.message
-            })
-            commit('SET_PROCCESSING', false)
-          });
+      try {
+        await Vue.$db.collection('userProfile').doc(uid).set(newProfile)
+        
+        if(avatarFile) {
+          await Vue.$storageRef.child(`profilePhotos/${uid}/avatar.jpg`).put(avatarFile)
+          commit('SET_PROFILE_IMG', avatarUrl)
+        }
+        
+        Vue.prototype.$message({type: 'success', message: 'Success. Base settings saved'})
+        commit('SET_PROFILE_DATA', newProfile)
+        commit('SET_PROCCESSING', false)
+      } 
+      catch(e) {
+        Vue.prototype.$message({type: 'error', message: e.message})
+        commit('SET_PROCCESSING', false)   
+      }
     }
+  },
+  getters: {
+    getProfile: (state) => state.profile,
+    getProfileAvatar: (state) => state.profileAvatar
   }
 }

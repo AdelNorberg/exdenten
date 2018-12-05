@@ -28,18 +28,18 @@
               <el-col :xs="24" :sm="12" :md="8" :lg="7" :xl="7" class="form-container">
                 <el-row>
                   <el-col class="input-form">
-                    <span class="input-span">Nickname</span>
+                    <span class="input-span" placeholder="Please input">Nickname</span>
                     <el-input v-model="form.nickname" />
                   </el-col>
                   <el-col class="input-form">
-                    <span class="input-span">Name</span>
+                    <span class="input-span" placeholder="Please input">Name</span>
                     <el-input v-model="form.name" />
                   </el-col>
-                  <el-col class="input-form" >
+                  <el-col class="input-form" placeholder="Please input">
                     <span class="input-span">Surname</span>
                     <el-input v-model="form.surname" />
                   </el-col>
-                  <el-col class="input-form">
+                  <el-col class="input-form" placeholder="Please input">
                     <span class="input-span">Personal profile</span>
                     <el-input type="textarea" v-model="form.description" />
                   </el-col>
@@ -49,7 +49,7 @@
 
             <el-row>
               <el-col :sm="24" :md="16" :lg="13" :xl="13">
-                <el-button type="primary" class="update-button" size="medium" @click="submitForm">
+                <el-button type="primary" class="update-button" size="medium" :disabled="getProccessing" @click="submitForm">
                   Update Information
                 </el-button>
               </el-col>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -81,6 +83,9 @@ export default {
       avatarFile: false,
       errorImg: false
     }
+  },
+  computed: {
+    ...mapGetters(['getProccessing'])
   },
   methods: {
     beforeAvatarUpload(e) {
@@ -113,16 +118,17 @@ export default {
     submitForm() {
       const { nickname, name, surname, description } = this.$store.state.userData.profile;
 
-      let newProfile = [
-        this.form.nickname || nickname,
-        this.form.name || name,
-        this.form.surname || surname,
-        this.form.description || description
-      ]
+      let newProfile = {
+        nickname: this.form.nickname || nickname,
+        name: this.form.name || name,
+        surname: this.form.surname || surname,
+        description: this.form.description || description
+      }
 
       this.$store.dispatch('UPDATE_PROFILE', {
         newProfile: newProfile,
-        avatarFile: this.avatarFile
+        avatarFile: this.avatarFile,
+        avatarUrl: this.avatarUrl
       })
     }
   }

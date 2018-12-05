@@ -33,7 +33,7 @@
               </el-popover>
             </el-col>
             <el-col :span="12" class="cont-profile">
-            <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" class="avatar">
+            <img :src="getProfileAvatar" class="avatar">
             <span :span="8" style="font-size: 14px;margin-right: -2rem">
               Nick Sayson
             </span>
@@ -72,6 +72,7 @@
 
 <script>
 import NavMenu from './layouts/NavMenu'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -94,9 +95,7 @@ export default {
     }
   },
   computed: {
-    isUserAuthenticated() {
-      return this.$store.getters.isUserAuthenticated
-    }
+    ...mapGetters(['isUserAuthenticated', 'getProfileAvatar'])
   },
   watch: {
     error() {
