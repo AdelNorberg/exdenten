@@ -14,7 +14,10 @@ import {
   UserOutline,
   ShoppingOutline,
   ContactsOutline,
-  CodeSandboxOutline
+  CodeSandboxOutline,
+  MailOutline,
+  PlusOutline,
+  StarOutline
 } from "@ant-design/icons";
 import AntdIcon from "@ant-design/icons-vue";
 import "firebase/firestore";
@@ -30,7 +33,10 @@ AntdIcon.add(
   UserOutline,
   ShoppingOutline,
   ContactsOutline,
-  CodeSandboxOutline
+  CodeSandboxOutline,
+  MailOutline,
+  PlusOutline,
+  StarOutline
 );
 
 Vue.config.productionTip = false;

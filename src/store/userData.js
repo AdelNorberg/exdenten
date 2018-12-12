@@ -67,7 +67,7 @@ export default {
       } catch (e) {
         commit(
           "SET_PROFILE_IMG",
-          "http://esquire.by/images/master/noavatar.png"
+          false
         );
       }
     },

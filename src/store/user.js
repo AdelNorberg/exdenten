@@ -36,7 +36,6 @@ export default {
     async [SIGNIN]({ commit }, { email, pass }) {
       commit("SET_PROCCESSING", true);
       commit("CLEAR_ERROR");
-
       try {
         firebase.auth().signInWithEmailAndPassword(email, pass);
         commit("SET_PROCCESSING", false);

@@ -19,25 +19,15 @@
                 placement="bottom"
                 trigger="click">
                 <div v-for="(item, key) in notifications" :key="key" class="text item">
-                  <el-row type="flex">
-                    <el-col :span="6" class="notif-cont">
-                      <el-row justify="center" align="center">
-                        <div class="notif-avatar">{{ item.type }}</div>
-                        {{ item.name }}
-                      </el-row>
-                    </el-col>
-                    <el-col :span="18">
-                      <el-col class="description">{{ item.description }}</el-col>
-                      <el-col>{{ item.time }}</el-col>
-                    </el-col>
-                  </el-row>
+                  <notif-list :item="item" />
                 </div>
-                <antd-icon slot="reference" class="el-icon-bell icon-bell-custom" type="bell-o"/>
+                <antd-icon slot="reference" class="el-icon-bell" type="bell-o"/>
               </el-popover>
             </el-col>
             <el-col :span="12" class="cont-profile">
               <el-row type="flex">
                 <img v-if="getProfileAvatar" :src="getProfileAvatar" class="avatar">
+                <antd-icon type="user-o" class="no-avatar" />
                 <div :span="8" class="nickname">
                   {{ getProfile.nickname }}
                 </div>
@@ -77,11 +67,13 @@
 
 <script>
 import NavMenu from "./layouts/NavMenu";
+import NotifList from "./components/NotifList";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    NavMenu
+    NavMenu,
+    NotifList
   },
   data() {
     return {
@@ -93,28 +85,24 @@ export default {
       ],
       notifications: [
         {
-          type: "meesage",
+          icon: "mail-o",
           description: "Congratulations on your new day...",
-          time: "a year ago",
-          name: "Evan"
+          time: "a year ago"
         },
         {
-          type: "event",
+          icon: "star-o",
           description: "Today there will be a group chat for...",
-          time: "a year ago",
-          name: "Exdenten"
+          time: "a year ago"
         },
         {
-          type: "message",
+          icon: "mail-o",
           description: "Now you can remove the goods in...",
-          time: "a year ago",
-          name: "Artur"
+          time: "a year ago"
         },
         {
-          type: "constructor",
+          icon: "plus-o",
           description: "We added a new feature to the...",
-          time: "a year ago",
-          name: "constructor"
+          time: "a year ago"
         }
       ]
     };
@@ -189,19 +177,6 @@ body > .el-container {
   cursor: pointer;
 }
 
-.notif-cont {
-  display: flex;
-}
-
-.notif-avatar {
-  border-radius: 20px;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  background: hsl(0, 0%, 86%);
-  color: white;
-}
-
 .nickname {
   font-size: 14px;
   margin-left: 0.5rem;
@@ -213,6 +188,11 @@ body > .el-container {
   height: 24px;
   line-height: 24px;
   margin-top: 1.1rem;
+  margin-left: 0.5rem;
+}
+
+.no-avatar {
+  margin-top: 1.45rem;
   margin-left: 0.5rem;
 }
 
@@ -247,8 +227,8 @@ body > .el-container {
   transform: rotate(180deg);
 }
 
-.icon-bell-custom {
-  color: hsl(0, 0%, 55%);
+.el-icon-bell {
+  cursor: pointer;
 }
 
 .item {
@@ -257,10 +237,6 @@ body > .el-container {
 
 .item:first-child {
   margin-top: 10px;
-}
-
-.description {
-  margin-bottom: 7px;
 }
 
 .signin {
