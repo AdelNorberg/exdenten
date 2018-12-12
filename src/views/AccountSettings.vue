@@ -41,7 +41,7 @@
                   </el-col>
                   <el-col class="input-form" placeholder="Please input">
                     <span class="input-span">Personal profile</span>
-                    <el-input type="textarea" v-model="form.description" />
+                    <el-input v-model="form.description" type="textarea" />
                   </el-col>
                 </el-row>
               </el-col>
@@ -67,43 +67,43 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        nickname: '',
-        name: '',
-        surname: '',
-        description: ''
+        nickname: "",
+        name: "",
+        surname: "",
+        description: ""
       },
-      avatarUrl: '',
-      avatarName: '',
+      avatarUrl: "",
+      avatarName: "",
       avatarFile: false,
       errorImg: false
-    }
+    };
   },
   computed: {
-    ...mapGetters(['getProccessing'])
+    ...mapGetters(["getProccessing"])
   },
   methods: {
     beforeAvatarUpload(e) {
       let reader = new FileReader();
       let file = e.target.files[0];
 
-      const isJPG = file.type === 'image/png';
+      const isJPG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (isJPG) {
-        this.$message.error('Avatar picture must be JPG format!');
+        this.$message.error("Avatar picture must be JPG format!");
         this.errorImg = true;
-        return
+        return;
       }
       if (!isLt2M) {
-        this.$message.error('Avatar picture size can not exceed 2MB!');
+        this.$message.error("Avatar picture size can not exceed 2MB!");
         this.errorImg = true;
-        return
+        return;
       }
 
       this.avatarName = file.name;
@@ -113,26 +113,31 @@ export default {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         this.avatarUrl = reader.result;
-      }
+      };
     },
     submitForm() {
-      const { nickname, name, surname, description } = this.$store.state.userData.profile;
+      const {
+        nickname,
+        name,
+        surname,
+        description
+      } = this.$store.state.userData.profile;
 
       let newProfile = {
         nickname: this.form.nickname || nickname,
         name: this.form.name || name,
         surname: this.form.surname || surname,
         description: this.form.description || description
-      }
+      };
 
-      this.$store.dispatch('UPDATE_PROFILE', {
+      this.$store.dispatch("UPDATE_PROFILE", {
         newProfile: newProfile,
         avatarFile: this.avatarFile,
         avatarUrl: this.avatarUrl
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -202,8 +207,8 @@ export default {
 }
 
 @media screen and (max-device-width: 768px) {
-    .form-container {
-      margin-top: 2rem;
-    }
+  .form-container {
+    margin-top: 2rem;
+  }
 }
 </style>

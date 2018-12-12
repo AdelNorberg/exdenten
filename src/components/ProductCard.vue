@@ -4,7 +4,7 @@
         <h1>{{ data.name }}</h1>
       </div>
       <div class="statistic">
-        <div class="item" v-for="(item, key) in data.items" :key="key">
+        <div v-for="(item, key) in data.items" :key="key" class="item">
           {{ item }}
         </div>
       </div>
@@ -14,8 +14,10 @@
 <script>
 export default {
   props: {
-    data: Object,
-    color: Object
+    data: {
+      type: Object,
+      default: () => "no data"
+    }
   }
-}
+};
 </script>

@@ -36,7 +36,7 @@ export default {
   props: {
     isCollapse: Boolean
   }
-}
+};
 </script>
 
 <style>

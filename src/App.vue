@@ -18,7 +18,7 @@
               <el-popover
                 placement="bottom"
                 trigger="click">
-                <div class="text item" v-for="(item, key) in notifications" :key="key">
+                <div v-for="(item, key) in notifications" :key="key" class="text item">
                   <el-row type="flex">
                     <el-col :span="6" class="notif-cont">
                       <el-row justify="center" align="center">
@@ -32,7 +32,7 @@
                     </el-col>
                   </el-row>
                 </div>
-                <antd-icon class="el-icon-bell icon-bell-custom" slot="reference" type="bell-o"/>
+                <antd-icon slot="reference" class="el-icon-bell icon-bell-custom" type="bell-o"/>
               </el-popover>
             </el-col>
             <el-col :span="12" class="cont-profile">
@@ -76,67 +76,83 @@
 </template>
 
 <script>
-import NavMenu from './layouts/NavMenu'
-import { mapGetters } from 'vuex'
+import NavMenu from "./layouts/NavMenu";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     NavMenu
   },
-  data () {
+  data() {
     return {
       isCollapse: false,
       paths: [
-        { name: 'Home', path: '/' },
-        { name: 'About', path: '/about' },
-        { name: 'Contacts', path: '/contacts' }
+        { name: "Home", path: "/" },
+        { name: "About", path: "/about" },
+        { name: "Contacts", path: "/contacts" }
       ],
       notifications: [
-        { type: 'meesage', description: 'Congratulations on your new day...', time: 'a year ago', name: 'Evan' },
-        { type: 'event', description: 'Today there will be a group chat for...', time: 'a year ago', name: 'Exdenten' },
-        { type: 'message', description: 'Now you can remove the goods in...', time: 'a year ago', name: 'Artur' },
-        { type: 'constructor', description: 'We added a new feature to the...', time: 'a year ago', name: 'constructor' }
+        {
+          type: "meesage",
+          description: "Congratulations on your new day...",
+          time: "a year ago",
+          name: "Evan"
+        },
+        {
+          type: "event",
+          description: "Today there will be a group chat for...",
+          time: "a year ago",
+          name: "Exdenten"
+        },
+        {
+          type: "message",
+          description: "Now you can remove the goods in...",
+          time: "a year ago",
+          name: "Artur"
+        },
+        {
+          type: "constructor",
+          description: "We added a new feature to the...",
+          time: "a year ago",
+          name: "constructor"
+        }
       ]
-    }
+    };
   },
   computed: {
-    ...mapGetters(['isUserAuthenticated', 'getProfileAvatar', 'getProfile'])
-  },
-  watch: {
-    error() {
-      let textError = this.$store.getters.getError
-    }
+    ...mapGetters(["isUserAuthenticated", "getProfileAvatar", "getProfile"])
   },
   methods: {
     signout() {
-      this.$confirm('Do you really want to go out?', 'Confirm', {
-          distinguishCancelAndClose: true,
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No'
+      this.$confirm("Do you really want to go out?", "Confirm", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No"
+      })
+        .then(() => {
+          this.$store.dispatch("SIGNOUT");
+          this.$message({
+            type: "success",
+            message: "You have successfully logged out.."
+          });
         })
-          .then(() => {
-            this.$store.dispatch('SIGNOUT')
-            this.$message({
-              type: 'success',
-              message: 'You have successfully logged out..'
-            });
-          })
-          .catch(action => {
-            this.$message({
-              type: 'info',
-              message: action === 'cancel'
-                ? 'Changes rejected. You stayed in the account.'
-                : 'Stay in the current route'
-          })
-      });
+        .catch(action => {
+          this.$message({
+            type: "info",
+            message:
+              action === "cancel"
+                ? "Changes rejected. You stayed in the account."
+                : "Stay in the current route"
+          });
+        });
     }
   }
-}
+};
 </script>
 
 
 <style lang="scss" scoped>
-@import './assets/vars.scss';
+@import "./assets/vars.scss";
 
 .el-header-app {
   background-color: #fff;
@@ -218,7 +234,7 @@ body > .el-container {
 }
 
 .alert {
-  position: absolute; 
+  position: absolute;
   max-width: 25rem;
   min-height: 2rem;
 }
@@ -228,7 +244,7 @@ body > .el-container {
 }
 
 .caret-icon-custom-active {
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
 .icon-bell-custom {
@@ -248,6 +264,6 @@ body > .el-container {
 }
 
 .signin {
-  margin-left: -3rem
+  margin-left: -3rem;
 }
 </style>

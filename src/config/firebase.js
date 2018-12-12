@@ -5,4 +5,4 @@ export default {
   projectId: "exdenten",
   storageBucket: "exdenten.appspot.com",
   messagingSenderId: "526175942231"
-}
+};

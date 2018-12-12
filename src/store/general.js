@@ -1,4 +1,4 @@
-import { SET_PROCCESSING, SET_ERROR, CLEAR_ERROR } from './mutation-types';
+import { SET_PROCCESSING, SET_ERROR, CLEAR_ERROR } from "./mutation-types";
 
 export default {
   state: {
@@ -7,17 +7,17 @@ export default {
   },
   mutations: {
     [SET_PROCCESSING](state, payload) {
-      state.proccessing = payload
+      state.proccessing = payload;
     },
     [SET_ERROR](state, payload) {
-      state.error = payload
+      state.error = payload;
     },
     [CLEAR_ERROR](state) {
-      state.error = null
+      state.error = null;
     }
   },
   getters: {
-    getProccessing: (state) => state.proccessing,
-    getError: (state) => state.error
+    getProccessing: state => state.proccessing,
+    getError: state => state.error
   }
-}
+};

@@ -23,7 +23,8 @@
 
 <style scoped>
 .image {
-  background: url("https://gw.alipayobjects.com/zos/rmsportal/KpnpchXsobRgLElEozzI.svg") no-repeat;
+  background: url("https://gw.alipayobjects.com/zos/rmsportal/KpnpchXsobRgLElEozzI.svg")
+    no-repeat;
   min-height: 350px;
 }
 
@@ -48,7 +49,7 @@
 }
 
 .error-description {
-  color: rgba(0,0,0,.45);
+  color: rgba(0, 0, 0, 0.45);
   font-size: 20px;
   line-height: 28px;
   margin-bottom: 16px;

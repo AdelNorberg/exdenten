@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import user from './user';
-import general from './general';
-import userData from './userData';
+import Vue from "vue";
+import Vuex from "vuex";
+import user from "./user";
+import general from "./general";
+import userData from "./userData";
 
 Vue.use(Vuex);
 
