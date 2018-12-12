@@ -35,13 +35,13 @@ export default {
     }
   },
   actions: {
-    async [LOAD_USER_PROFILE]({commit}, payload) {
+    async [LOAD_USER_PROFILE]({commit, dispatch}, payload) {
       commit('SET_PROCCESSING', true)
 
       try {
-        let userProfileRef = await Vue.$db.collection('profile').doc(payload)
-        data = userProfileRef.get()
-        
+        let data = await Vue.$db.collection('userProfile').doc(payload).get()
+        dispatch('LOAD_AVATAR')
+
         let profile = data.exists ? data.data() : defaultProfile
         commit('SET_PROFILE_DATA', profile)
         commit('SET_PROCCESSING', false)   
@@ -51,9 +51,13 @@ export default {
         commit('SET_PROCCESSING', false)
       }
     },
-    async [LOAD_AVATAR]({commit, getters}, payload) {
-      //...
-      //url = storageRef.child(`profilePhotos/${getters.userId}/avatar.jpg`).getDownloadURL()
+    async [LOAD_AVATAR]({commit, getters}) {
+      try {
+        const url = await Vue.$storageRef.child(`profilePhotos/${getters.userId}/avatar.jpg`).getDownloadURL()
+        commit('SET_PROFILE_IMG', url)
+      } catch(e) {
+        commit('SET_PROFILE_IMG', 'http://esquire.by/images/master/noavatar.png')
+      }
     },
     async [LOAD_USER_NOTIFICATION]({commit, getters}) {
       commit('SET_PROCCESSING', true)

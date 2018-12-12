@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <el-card shadow="never">
       <div class="header" :style="color">
         <h1>{{ data.name }}</h1>
       </div>
@@ -8,7 +8,7 @@
           {{ item }}
         </div>
       </div>
-    </div>
+    </el-card>
 </template>
 
 <script>
@@ -19,23 +19,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-.container {
-  color: white;
-  height: 20rem;
-  width: 20rem;
-}
-
-.header {
-  background-color: #1d39c4;
-  height: 4rem;
-}
-
-.statistic {
-  background-color: #2f54eb;
-  height: 16rem;
-}
-
-</style>

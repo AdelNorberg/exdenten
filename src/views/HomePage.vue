@@ -2,8 +2,8 @@
   <el-row>
     <user-card />
     <el-row :gutter="24">
-      <el-col :span="6">
-        <product-card v-for="(item, key) in productsCardData" :data="item" :key="key"/>
+      <el-col v-for="(item, key) in productsCardData" :md="8" :lg="5" :key="key">
+        <product-card :data="item"/>
       </el-col>
     </el-row>
   </el-row> 
