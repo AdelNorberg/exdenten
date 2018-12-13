@@ -18,9 +18,9 @@ export default new Router({
       component: () => import("../views/notAuth/HomePage")
     },
     {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutPage")
+      path: "/store",
+      name: "store",
+      component: () => import("../views/StorePage")
     },
     {
       path: "/contacts",

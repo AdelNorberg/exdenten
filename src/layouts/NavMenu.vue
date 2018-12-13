@@ -8,7 +8,7 @@
         <antd-icon type="home-o" class="antd-icon" />
         <span slot="title">Home</span>
     </el-menu-item>
-    <el-menu-item index="3" @click="$router.push('/about')">
+    <el-menu-item index="3" @click="$router.push('/store')">
         <antd-icon type="shopping-o" class="antd-icon" />
         <span slot="title">Store</span>
     </el-menu-item>

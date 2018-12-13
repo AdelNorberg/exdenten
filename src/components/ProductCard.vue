@@ -1,6 +1,6 @@
 <template>
     <el-card shadow="never">
-      <div class="header" :style="color">
+      <div class="header">
         <h1>{{ data.name }}</h1>
       </div>
       <div class="statistic">

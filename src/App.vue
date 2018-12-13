@@ -80,7 +80,7 @@ export default {
       isCollapse: false,
       paths: [
         { name: "Home", path: "/" },
-        { name: "About", path: "/about" },
+        { name: "Store", path: "/store" },
         { name: "Contacts", path: "/contacts" }
       ],
       notifications: [
